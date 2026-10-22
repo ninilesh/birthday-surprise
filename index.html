@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday!</title>
+  <meta name="description" content="A dreamy birthday love story with pastel clouds, a magical blooming wish tree, cherished memories, and your song." />
+  <meta property="og:title" content="Happy Birthday!" />
+  <meta property="og:description" content="A dreamy birthday love story made of wishes, flowers, cherished memories, and love." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Script -->
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <!-- Starfield Canvas Background -->
+  <canvas id="starfield-canvas"></canvas>
+
+  <!-- Floating Ambient Particles Layer -->
+  <div id="particles-container"></div>
+
+  <!-- Single Shared Audio Element for the Entire Website (Direct Body Child) -->
+  <audio id="main-audio" preload="auto" src="song.mp3"></audio>
+
+  <!-- ======================================================================
+       Screen A: Birthday Countdown Screen
+       ====================================================================== -->
+  <div id="countdown-screen" class="screen">
+    <!-- Test Mode (Skip Countdown) button in top-left -->
+    <button id="btn-test-mode" class="test-mode-btn" title="Skip directly to the surprise experience">
+      <span>Test Mode</span>
+      <span class="subtext">(Skip Countdown)</span>
+    </button>
+
+    <!-- Glowing Crescent Moon in top-right -->
+    <div class="moon-container" aria-hidden="true">
+      <div class="crescent-moon"></div>
+    </div>
+
+    <!-- Romantic Header & Subtitle -->
+    <h1 class="font-script countdown-title">Your Special Day is Almost Here</h1>
+    <div class="heart-divider" aria-hidden="true">♡</div>
+    <p class="countdown-subtitle">The magic begins in...</p>
+
+    <!-- 4 Countdown Boxes -->
+    <div class="countdown-grid" role="timer" aria-live="polite">
+      <div class="glass countdown-box">
+        <span id="days" class="num">12</span>
+        <span class="lbl">DAYS</span>
+      </div>
+      <div class="glass countdown-box">
+        <span id="hours" class="num">08</span>
+        <span class="lbl">HOURS</span>
+      </div>
+      <div class="glass countdown-box">
+        <span id="minutes" class="num">34</span>
+        <span class="lbl">MINUTES</span>
+      </div>
+      <div class="glass countdown-box">
+        <span id="seconds" class="num">27</span>
+        <span class="lbl">SECONDS</span>
+      </div>
+    </div>
+
+    <!-- Romantic Message Below Countdown -->
+    <p class="until-text">Until your beautiful day <span class="heart-pink">♥</span></p>
+
+    <!-- Prominent Pink Button to Begin -->
+    <div class="begin-btn-container">
+      <button id="btn-begin-surprise" class="btn-pink btn-glow pulse-subtle">
+        <span>Enter Surprise</span>
+        <span aria-hidden="true">✨</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       Screen B: Main Surprise Content
+       ====================================================================== -->
+  <div id="main-content" class="hidden">
+    <!-- Love Letter: opened by the recipient, no external services required -->
+    <section id="love-letter-section" class="main-section story-section" aria-labelledby="love-letter-title">
+      <p class="eyebrow-pill">A letter from my heart · just for you</p>
+      <h2 id="love-letter-title" class="font-script section-title">Before the world wakes up…</h2>
+      <p class="section-subtitle">There are things I feel every day that deserve more than an ordinary message.</p>
+      <div class="letter-shell">
+        <div class="letter-seal" aria-hidden="true">♡</div>
+        <div id="love-letter-copy" class="love-letter-copy" hidden>
+          <p>My love,</p>
+          <p>If I could give you one thing beyond this little website, it would be the ability to see yourself through my eyes. You would understand why ordinary moments become memories with you, why your happiness matters to me, and why even the quietest days feel warmer when you are in them.</p>
+          <p>I cannot promise that every day will be perfect. I can promise to keep showing up, to listen when words are difficult, to celebrate your smallest victories, and to choose tenderness even when life gets loud. I want to be someone you can rest beside—not just someone who makes grand promises.</p>
+          <p>So today, and in all the ordinary tomorrows after it, I hope you feel loved in the details: in the patience, in the laughter, in the remembering, and in the way I keep choosing you.</p>
+          <p class="letter-signoff">Always, in every season of us. <span>♥</span></p>
+        </div>
+        <button id="btn-open-letter" class="btn-pink btn-glow" type="button" aria-expanded="false" aria-controls="love-letter-copy">Open your letter <span aria-hidden="true">✉</span></button>
+      </div>
+    </section>
+
+    <!-- Section 1: Make-a-Wish Flowering Tree -->
+    <section id="tree-section" class="main-section" aria-labelledby="tree-title">
+      <h2 id="tree-title" class="font-script section-title">make a wish...</h2>
+      <div class="heart-divider" aria-hidden="true">♡</div>
+      <p class="section-subtitle">
+        Close your eyes, make a wish, and let our little universe bloom with love ♥
+      </p>
+      <p class="romantic-whisper">Every petal is a little promise: I will keep choosing you, in every season, in every lifetime.</p>
+
+      <!-- Interactive Magical Flowering Cherry Blossom Tree (SVG) -->
+      <!-- Interactive Magical Flowering Cherry Blossom Tree (SVG) -->
+      <div class="tree-container">
+        <svg id="magical-tree-svg" viewBox="0 0 800 722" preserveAspectRatio="xMidYMid meet" class="magical-tree" aria-label="Magical Flowering Cherry Blossom Tree">
+          <defs>
+            <!-- Branch and flower glow filters -->
+            <filter id="treeWarmGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <filter id="blossomSoftGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <filter id="heartGlow" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+
+            <!-- Gradients for Canopy Volume (Soft Cherry Clouds) -->
+            <radialGradient id="canopyCloudGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ff75aa" stop-opacity="0.28" />
+              <stop offset="55%" stop-color="#ff3385" stop-opacity="0.14" />
+              <stop offset="85%" stop-color="#e056fd" stop-opacity="0.05" />
+              <stop offset="100%" stop-color="transparent" stop-opacity="0" />
+            </radialGradient>
+
+            <!-- Gradients for Trunk, Branches & Roots -->
+            <linearGradient id="trunkBarkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#160813" />
+              <stop offset="25%" stop-color="#341324" />
+              <stop offset="50%" stop-color="#541e3a" />
+              <stop offset="75%" stop-color="#381428" />
+              <stop offset="100%" stop-color="#180915" />
+            </linearGradient>
+
+            <linearGradient id="branchGradWarm" x1="0%" y1="100%" x2="0%" y2="0%">
+              <stop offset="0%" stop-color="#381427" />
+              <stop offset="40%" stop-color="#581e3c" />
+              <stop offset="75%" stop-color="#882e5d" />
+              <stop offset="92%" stop-color="#c94e8a" />
+              <stop offset="100%" stop-color="#ffa6d2" />
+            </linearGradient>
+
+            <radialGradient id="rootGroundAura" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(255, 110, 180, 0.55)" />
+              <stop offset="35%" stop-color="rgba(255, 60, 150, 0.28)" />
+              <stop offset="70%" stop-color="rgba(255, 180, 120, 0.12)" />
+              <stop offset="100%" stop-color="transparent" />
+            </radialGradient>
+
+            <radialGradient id="blossomPetalGrad" cx="35%" cy="30%" r="65%">
+              <stop offset="0%" stop-color="#ffffff" />
+              <stop offset="28%" stop-color="#ffe4f0" />
+              <stop offset="68%" stop-color="#ff6aa7" />
+              <stop offset="100%" stop-color="#ea2075" />
+            </radialGradient>
+
+            <radialGradient id="blossomPetalSoftWhite" cx="40%" cy="30%" r="65%">
+              <stop offset="0%" stop-color="#ffffff" />
+              <stop offset="45%" stop-color="#fff0f6" />
+              <stop offset="85%" stop-color="#ffb3d5" />
+              <stop offset="100%" stop-color="#f568a4" />
+            </radialGradient>
+
+            <radialGradient id="blossomCenterGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffffff" />
+              <stop offset="45%" stop-color="#ffe97d" />
+              <stop offset="100%" stop-color="#ff9933" />
+            </radialGradient>
+          </defs>
+          <!-- Neon sakura tree artwork (replaces the old drawn tree) -->
+          <image id="tree-artwork" href="assets/images/neon_sakura_tree.png" x="0" y="0" width="800" height="722" preserveAspectRatio="xMidYMid meet" pointer-events="none" />
+
+          <!-- Wish blossoms & hearts get added here when the button is pressed -->
+          <g id="tree-blossoms-layer" class="tree-blossoms-layer"></g>
+
+          <!-- Branch Sparkles Layer (Golden Stardust Highlights) -->
+          <g id="tree-sparkles-layer" class="tree-sparkles-layer"></g>
+        </svg>
+        <div class="tree-ground-glow" aria-hidden="true"></div>
+      </div>
+
+      <!-- Make a Wish Button -->
+      <button id="btn-make-wish" class="btn-pink btn-glow">
+        <span aria-hidden="true">♡</span>
+        <span>Make a Wish</span>
+      </button>
+
+      <p id="bloom-counter-text" class="bloom-counter">Wish blooms attached: <span id="bloom-count-num" style="color:#a84475; font-weight:700;">0</span> 🌸 (Click below to bloom more!)</p>
+    </section>
+
+    <!-- Section 2: Wish Writing Form -->
+    <section id="wish-section" class="main-section" aria-labelledby="wish-form-title">
+      <div class="glass-card wish-card">
+        <h3 id="wish-form-title" class="font-script wish-title">If you could wish for one thing for us...</h3>
+
+        <div class="wish-input-wrapper">
+          <textarea
+            id="wish-input"
+            maxlength="250"
+            placeholder="A little wish for our forever..."
+            aria-label="Your birthday wish"
+          ></textarea>
+          <div class="char-count"><span id="char-current">0</span> / 250</div>
+        </div>
+
+        <p id="wish-error" class="wish-error-msg" role="alert"></p>
+
+        <button id="btn-send-wish" class="btn-pink btn-glow">
+          <span aria-hidden="true">✈</span>
+          <span>Send to the Universe</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Section 3: Shooting Star Scene (Shown after sending wish) -->
+    <section id="shooting-star-section" class="main-section hidden" aria-live="polite">
+      <h2 class="font-script section-title">A little piece of your heart is on its way...</h2>
+      <p class="section-subtitle">Somewhere among the stars, I hope every beautiful thing finds its way to you. ♥</p>
+
+      <div class="shooting-star-canvas-container">
+        <canvas id="star-animation-canvas"></canvas>
+      </div>
+
+      <div class="wish-confirmation-card">
+        <p id="submitted-wish-quote" class="wish-quote"></p>
+        <p style="color: #e5e0f8; font-size: 0.95rem;">
+          Your wish has been launched into the cosmos among the stars. May every gentle dream of yours come true. ✨
+        </p>
+      </div>
+    </section>
+
+    <!-- Section 4: Memories Gallery (Polaroids) -->
+    <section id="gallery-section" class="main-section gallery-section-wrapper" aria-labelledby="gallery-title">
+      <h2 id="gallery-title" class="font-script section-title">Our Little Moments</h2>
+      <div class="heart-divider" aria-hidden="true">♡</div>
+      <p class="section-subtitle">Some of my favorite moments with you ♡</p>
+
+      <div class="polaroid-gallery-container">
+        <!-- Navigation Buttons -->
+        <button id="gallery-prev" class="gallery-nav-btn" aria-label="Previous memories">‹</button>
+
+        <div class="polaroid-grid" role="region" aria-label="Photo Memories">
+          <!-- Polaroid 1 -->
+          <article class="polaroid-card">
+            <div class="polaroid-img-wrapper">
+              <img
+                src="assets/images/polaroid_you_and_me_1792175137151.jpg"
+                alt="Romantic couple walking hand in hand under fairy lights"
+                class="polaroid-img"
+                loading="lazy"
+              />
+            </div>
+            <p class="polaroid-caption">You & Me ♡</p>
+          </article>
+
+          <!-- Polaroid 2 -->
+          <article class="polaroid-card">
+            <div class="polaroid-img-wrapper">
+              <img
+                src="assets/images/polaroid_happy_place_1792175136532.jpg"
+                alt="Couple embracing at coastal sunset scenic overlook"
+                class="polaroid-img"
+                loading="lazy"
+              />
+            </div>
+            <p class="polaroid-caption">My Happy Place ♡</p>
+          </article>
+
+          <!-- Polaroid 3 -->
+          <article class="polaroid-card">
+            <div class="polaroid-img-wrapper">
+              <img
+                src="assets/images/polaroid_forever_1792175137027.jpg"
+                alt="Close-up of intertwined hands holding a gentle blossom"
+                class="polaroid-img"
+                loading="lazy"
+              />
+            </div>
+            <p class="polaroid-caption">Forever ♡</p>
+          </article>
+
+          <!-- Polaroid 4 -->
+          <article class="polaroid-card">
+            <div class="polaroid-img-wrapper">
+              <img
+                src="assets/images/polaroid_always_1792175136885.jpg"
+                alt="Couple silhouettes sitting together on a hill at twilight under the stars"
+                class="polaroid-img"
+                loading="lazy"
+              />
+            </div>
+            <p class="polaroid-caption">Always ♡</p>
+          </article>
+        </div>
+
+        <button id="gallery-next" class="gallery-nav-btn" aria-label="Next memories">›</button>
+      </div>
+
+      <!-- Section 5: Music Player Bar with Romantic Playlist -->
+      <div class="music-player-wrapper">
+        <!-- Audio element is managed at body root for reliable unhindered playback -->
+
+        <!-- Expandable Playlist Drawer -->
+        <div id="playlist-drawer" class="playlist-drawer hidden" aria-label="Romantic Love Playlist">
+          <div class="playlist-header">
+            <div class="playlist-header-left">
+              <span class="playlist-title">Romantic Melody Playlist ♡</span>
+              <span class="playlist-subtitle">Curated love songs for your special day</span>
+            </div>
+            <button id="btn-close-playlist" class="playlist-close-btn" aria-label="Close Playlist">✕</button>
+          </div>
+          <div id="playlist-items-list" class="playlist-items-list" role="list">
+            <!-- Playlist items injected dynamically from PLAYLIST array -->
+          </div>
+          <div class="playlist-footer-note">
+            <p>💗 Just one song, chosen with love. You can also select an MP3 from your device for this visit.</p>
+            <div class="playlist-upload-action">
+              <input type="file" id="local-audio-file-input" accept="audio/*" style="display:none;" />
+              <button id="btn-upload-audio" class="btn-upload-audio" type="button" title="Test with any MP3 from your computer">
+                <span>📂</span>
+                <span>Test / Play Any Audio File From Your Computer</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="music-player-bar" role="region" aria-label="Music Player">
+          <!-- Album Thumbnail & Info -->
+          <div class="player-left">
+            <img
+              id="player-album-thumb"
+              src="assets/images/album_cover_better_together_1792175153679.jpg"
+              alt="Current Track Artwork"
+              class="album-art-thumb"
+            />
+            <div class="track-meta">
+              <span id="player-track-title" class="track-title">Our Special Song ♡</span>
+              <span id="player-track-artist" class="track-artist">Just for you, my love</span>
+            </div>
+          </div>
+
+          <!-- Controls & Scrubber -->
+          <div class="player-center">
+            <div class="player-controls">
+              <button id="btn-shuffle" class="ctrl-btn" aria-label="Toggle shuffle" title="Shuffle playlist (fair without immediate repeats)">🔀</button>
+              <button id="btn-prev-track" class="ctrl-btn" aria-label="Previous track" title="Previous track">⏮</button>
+              <button id="btn-play-pause" class="ctrl-btn ctrl-btn-play" aria-label="Play or pause track" title="Play or pause track">▶</button>
+              <button id="btn-next-track" class="ctrl-btn" aria-label="Next track" title="Next track">⏭</button>
+              <button id="btn-toggle-playlist" class="ctrl-btn btn-playlist-toggle" aria-label="Toggle playlist drawer" title="Open Playlist">📜</button>
+            </div>
+
+            <div class="player-scrubber-row">
+              <span id="time-current" class="time-label">0:00</span>
+              <div id="scrubber-track" class="scrubber-track" role="slider" aria-label="Track progress" aria-valuemin="0" aria-valuemax="261" aria-valuenow="0">
+                <div id="scrubber-fill" class="scrubber-fill" style="width: 0%;"></div>
+              </div>
+              <span id="time-duration" class="time-label">4:20</span>
+            </div>
+          </div>
+
+          <!-- Like / Favorite Heart -->
+          <div class="player-right">
+            <button id="btn-like-track" class="like-btn" aria-label="Like this track" title="Like track">♡</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our story timeline -->
+    <section id="timeline-section" class="main-section story-section" aria-labelledby="timeline-title">
+      <p class="eyebrow-pill">Little moments, forever memories</p>
+      <h2 id="timeline-title" class="font-script section-title">The story of us</h2>
+      <p class="section-subtitle">Not just the big days—the tiny moments that quietly became everything.</p>
+      <div class="love-timeline">
+        <article class="timeline-memory"><span class="timeline-dot">♡</span><span class="timeline-kicker">THE BEGINNING</span><h3>When ordinary became special</h3><p>Somewhere between our first conversations and the first time I smiled at my phone because of you, you became a part of my day I looked forward to.</p></article>
+        <article class="timeline-memory"><span class="timeline-dot">✧</span><span class="timeline-kicker">THE LITTLE THINGS</span><h3>Our own tiny universe</h3><p>The jokes only we understand, the looks that say more than words, and the comfort of being ourselves—these are the moments I want to keep collecting.</p></article>
+        <article class="timeline-memory"><span class="timeline-dot">∞</span><span class="timeline-kicker">WHAT I CHOOSE</span><h3>Every tomorrow, with you</h3><p>I hope our story keeps growing gently: with honesty, patience, new adventures, and a love that feels safe enough to be completely real.</p></article>
+      </div>
+      <p class="timeline-note">Our best chapter is not behind us. It's the one we keep writing. <span>♥</span></p>
+    </section>
+
+    <!-- Interactive constellation: tap a star to reveal a promise -->
+    <section id="constellation-section" class="main-section story-section constellation-section" aria-labelledby="constellation-title">
+      <p class="eyebrow-pill">A little universe, made for two</p>
+      <h2 id="constellation-title" class="font-script section-title">Our little constellation</h2>
+      <p class="section-subtitle">Touch a star. Each one holds a promise I want to keep.</p>
+      <div class="constellation-map" role="group" aria-label="Choose a star to reveal a love promise">
+        <svg class="constellation-lines" viewBox="0 0 700 330" aria-hidden="true"><path d="M78 198 L180 86 L290 150 L380 54 L486 130 L602 72 L565 242 L400 270 L290 150 L180 260 L78 198 M486 130 L565 242" /></svg>
+        <button class="constellation-star star-one" type="button" data-promise="I will listen to understand you, not just to answer you." aria-label="Reveal promise one">✦</button>
+        <button class="constellation-star star-two" type="button" data-promise="I will celebrate your light, especially on the days you cannot see it yourself." aria-label="Reveal promise two">✧</button>
+        <button class="constellation-star star-three" type="button" data-promise="I will make room for your dreams, your growth, and every version of you still becoming." aria-label="Reveal promise three">✦</button>
+        <button class="constellation-star star-four" type="button" data-promise="When life feels heavy, I want us to face the hard things side by side." aria-label="Reveal promise four">✧</button>
+        <button class="constellation-star star-five" type="button" data-promise="I will never stop finding reasons to be grateful that our paths crossed." aria-label="Reveal promise five">✦</button>
+        <button class="constellation-star star-six" type="button" data-promise="My favourite future is not a perfect one. It is a real one, with you in it." aria-label="Reveal promise six">✧</button>
+      </div>
+      <div id="constellation-promise" class="constellation-promise" aria-live="polite">Choose any glowing star above ✨</div>
+    </section>
+
+    <!-- Birthday ending: the final reveal of the journey -->
+    <section id="birthday-finale-section" class="main-section story-section birthday-finale" aria-labelledby="birthday-finale-title">
+      <div class="birthday-orbit" aria-hidden="true"><span>✧</span><span>♡</span><span>✦</span><span>♡</span><span>✧</span></div>
+      <p class="eyebrow-pill">And now, the reason for all this magic</p>
+      <h2 id="birthday-finale-title" class="font-script section-title">Happy Birthday, my love</h2>
+      <p class="section-subtitle">Today the world gets to celebrate the person who makes my world softer, brighter, and more beautiful.</p>
+      <div class="birthday-cake" aria-hidden="true"><span class="cake-candle">♥</span><span class="cake-top"></span><span class="cake-middle"></span><span class="cake-bottom"></span></div>
+      <p class="birthday-deep-message">May this new year of your life bring you the peace you deserve, the courage to follow every dream, and a hundred quiet reasons to smile. And whenever you need a reminder of how precious you are, come back here: this tiny universe will always be cheering for you.</p>
+      <button id="btn-birthday-wish" class="btn-pink btn-glow" type="button">One last wish for you <span aria-hidden="true">🎂</span></button>
+      <p id="birthday-final-note" class="birthday-final-note" hidden>May you feel deeply loved—not only today, but in all the days that follow. Happy birthday, my favourite person. <span>♥</span></p>
+      <button id="btn-back-to-tree" class="soft-link-btn" type="button">Return to our wish tree ↑</button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <p class="font-script footer-text">♥ Happy Birthday My Love ♥</p>
+    </footer>
+  </div>
+
+  <!-- Floating Music Toggle FAB (Bottom Right) -->
+  <button id="floating-music-toggle" class="floating-music-toggle" aria-label="Toggle background music" title="Toggle Music">
+    <span aria-hidden="true">♫</span>
+  </button>
+
+  <!-- Lightbox Modal for Photo Zoom -->
+  <div id="lightbox-modal" class="lightbox-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="lightbox-content">
+      <button id="lightbox-close" class="lightbox-close-btn" aria-label="Close photo view">✕</button>
+      <img id="lightbox-img" src="" alt="Zoomed memory photo" />
+      <p id="lightbox-caption" class="lightbox-caption"></p>
+    </div>
+  </div>
+</body>
+</html>
